@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/subjects")
@@ -19,12 +20,9 @@ public class SubjectController {
     @Autowired
     private SubjectService subjectService;
 
-    /**@GetMapping("/all")
-    public List<SubjectDTO> getSubjects (){
-        return subjectService.getSubjects();
-    }**/
     @GetMapping("/all")
-    public String hello(){
-        return  "Hola";
+    public Set<SubjectDTO> getSubjects (){
+        return subjectService.getSubjects();
     }
+
 }

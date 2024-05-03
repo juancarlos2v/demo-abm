@@ -1,5 +1,6 @@
 package com.demo.students.controller;
 
+import com.demo.students.dto.StudentDTO;
 import com.demo.students.entity.Student;
 import com.demo.students.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class StudentController {
     }
 
     @GetMapping("/all")
-    public Set<Student> getStudents(){
+    public Set<StudentDTO> getStudents(){
         return studentService.getStudents();
     }
     @GetMapping("/{id}")
@@ -43,6 +44,10 @@ public class StudentController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-
+    @PutMapping("/inscription")
+    public ResponseEntity<Object> addSubject(@RequestParam Long idStudent, @RequestParam Long idSubject){
+studentService.inscriptionSubject(idStudent,idSubject);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
