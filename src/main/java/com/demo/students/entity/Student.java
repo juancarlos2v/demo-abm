@@ -1,14 +1,18 @@
-package com.demo.students.models;
+package com.demo.students.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "students")
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name="native")
     @Column(name = "id")
     private Long id;
     @Column(name = "name")
@@ -17,12 +21,17 @@ public class Student {
     private String lastName;
     @Column(name = "subjects")
     @ManyToMany(mappedBy = "students")
-    private List<Subject> subjects;
+    private Set<Subject> subjects=new HashSet<>();
 
     public Student() {
     }
 
-    public Student(String name, String lastName, List<Subject> subjects) {
+    public Student(String name, String lastName) {
+        this.name = name;
+        this.lastName = lastName;
+    }
+
+    public Student(String name, String lastName, Set<Subject> subjects) {
         this.name = name;
         this.lastName = lastName;
         this.subjects = subjects;
@@ -52,11 +61,11 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public List<Subject> getSubjects() {
+    public Set<Subject> getSubjects() {
         return subjects;
     }
 
-    public void setSubjects(List<Subject> subjects) {
+    public void setSubjects(Set<Subject> subjects) {
         this.subjects = subjects;
     }
 

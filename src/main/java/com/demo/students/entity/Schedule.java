@@ -1,4 +1,4 @@
-package com.demo.students.models;
+package com.demo.students.entity;
 
 public enum Schedule {
     MORNING,
