@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("students")
 public class StudentController {
@@ -19,7 +20,7 @@ public class StudentController {
 
     @PostMapping("/create")
     public ResponseEntity<Object> createStudent(@RequestBody Student student){
-        studentService.createStudent(student);
+        studentService.createStudent( student);
         return  new ResponseEntity<>(student, HttpStatus.CREATED);
     }
 
@@ -27,8 +28,9 @@ public class StudentController {
     public Set<StudentDTO> getStudents(){
         return studentService.getStudents();
     }
+
     @GetMapping("/{id}")
-    public Student getStudents(@PathVariable Long id){
+    public StudentDTO getStudents(@PathVariable Long id){
         return studentService.getStudent(id);
     }
 
@@ -46,7 +48,13 @@ public class StudentController {
 
     @PutMapping("/inscription")
     public ResponseEntity<Object> addSubject(@RequestParam Long idStudent, @RequestParam Long idSubject){
-studentService.inscriptionSubject(idStudent,idSubject);
+        studentService.inscriptionSubject(idStudent,idSubject);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/subject/cancel")
+    public ResponseEntity<Object> cancelSubject(@RequestParam Long idSubject, @RequestParam Long idStudent){
+        studentService.cancelSubject(idSubject, idStudent);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

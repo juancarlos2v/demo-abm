@@ -10,8 +10,9 @@ import java.util.Set;
 public interface StudentService {
     void createStudent(Student student);
     Set<StudentDTO> getStudents();
-    Student getStudent(Long id);
+    StudentDTO getStudent(Long id);
     void updateStudent(Long id, Student student);
     void deleteStudent(Long id);
     void inscriptionSubject(Long idStudent, Long idSubject);
+    void cancelSubject(Long idSubject, Long idStudent);
 }

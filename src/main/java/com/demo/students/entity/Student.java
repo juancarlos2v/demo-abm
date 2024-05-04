@@ -18,6 +18,12 @@ public class Student {
     private String name;
     @Column(name = "last_name")
     private String lastName;
+    @Column(name = "document")
+    private String document;
+    @Column(name = "phone")
+    private String phone;
+    @Column(name = "mail")
+    private String mail;
     @Column(name = "subjects")
     @ManyToMany(mappedBy = "students")
     private Set<Subject> subjects=new HashSet<>();
@@ -25,14 +31,20 @@ public class Student {
     public Student() {
     }
 
-    public Student(String name, String lastName) {
+    public Student(String name, String lastName, String document, String phone, String mail) {
         this.name = name;
         this.lastName = lastName;
+        this.document = document;
+        this.phone = phone;
+        this.mail = mail;
     }
 
-    public Student(String name, String lastName, Set<Subject> subjects) {
+    public Student(String name, String lastName, String document, String phone, String mail, Set<Subject> subjects) {
         this.name = name;
         this.lastName = lastName;
+        this.document = document;
+        this.phone = phone;
+        this.mail = mail;
         this.subjects = subjects;
     }
 
@@ -66,6 +78,30 @@ public class Student {
 
     public void setSubjects(Set<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.demo.students.service;
 
 import com.demo.students.dto.SubjectDTO;
 
+import com.demo.students.entity.Subject;
 import com.demo.students.repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,10 @@ public class ISubjectService implements SubjectService{
     @Autowired
     private SubjectRepository subjectRepository;
 
-    /**@Override
-    public SubjectDTO createSubject() {
-        return null;
-    }**/
+    @Override
+    public void createSubject(Subject subject) {
+        subjectRepository.save(subject);
+    }
 
     @Override
     public Set<SubjectDTO> getSubjects() {
@@ -28,18 +29,9 @@ public class ISubjectService implements SubjectService{
 
     }
 
-   /** @Override
-    public SubjectDTO getSubject() {
-        return null;
-    }
-
     @Override
-    public SubjectDTO updateSubject() {
-        return null;
+    public void deleteSubject(Long id) {
+        Subject subject=subjectRepository.findById(id).orElse(null);
+        subjectRepository.delete(subject);
     }
-
-    @Override
-    public void deleteSubject() {
-
-    }**/
 }

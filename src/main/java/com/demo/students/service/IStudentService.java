@@ -8,6 +8,7 @@ import com.demo.students.repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,10 +31,10 @@ public class IStudentService implements StudentService{
     }
 
     @Override
-    public Student getStudent(Long id) {
+    public StudentDTO getStudent(Long id) {
         Student st=studentRepository.findById(id).orElse(null);
         if(st==null) throw  new RuntimeException("Student not found");
-        return st;
+        return new StudentDTO(st);
     }
 
     @Override
@@ -44,8 +45,10 @@ public class IStudentService implements StudentService{
 
         st.setName(student.getName());
         st.setLastName(student.getLastName());
+        st.setDocument(student.getDocument());
+        st.setMail(student.getMail());
+        st.setPhone(student.getPhone());
         studentRepository.save(st);
-
     }
 
     @Override
@@ -63,8 +66,14 @@ public class IStudentService implements StudentService{
 
         subject.getStudents().add(st);
         subjectRepository.save(subject);
+    }
 
+    @Override
+    public void cancelSubject(Long idSubject, Long idStudent) {
+        Student student= studentRepository.findById(idStudent).orElse(null);
+        Subject subject=subjectRepository.findById(idSubject).orElse(null);
 
-
+        subject.getStudents().remove(student);
+        subjectRepository.save(subject);
     }
 }
