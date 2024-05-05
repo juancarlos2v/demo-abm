@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import styles from "@styles/tableInscription.module.css";
+import CreateSubject from './CreateSubject';
 
 const TableSubjects = () => {
     const [subjects, setSubjects] = useState([]);
@@ -17,15 +18,15 @@ const TableSubjects = () => {
             })
     }, [])
 
-    const cancelSubject = (idSubject, idStudent) => {
-        axios
-            .put(`${baseURL}/students/subject/cancel?idSubject=${idSubject}&idStudent=${idStudent}`)
-            .then(response => {
-                console.log(response)
-            }).catch(error => {
-                console.log(error)
-            })
-    }
+    // const cancelSubject = (idSubject, idStudent) => {
+    //     axios
+    //         .put(`${baseURL}/students/subject/cancel?idSubject=${idSubject}&idStudent=${idStudent}`)
+    //         .then(response => {
+    //             console.log(response)
+    //         }).catch(error => {
+    //             console.log(error)
+    //         })
+    // }
 
     return (
         <>
@@ -47,12 +48,13 @@ const TableSubjects = () => {
                                 <td>{subject.stage} </td>
                                 <td>{subject.teacher} </td>
                                 <td>{subject.schedule}</td>
-                                <td><button onClick={() => cancelSubject(subject.id, idStudent)}>x</button></td>
+                                {/* <td><button onClick={() => cancelSubject(subject.id, idStudent)}>x</button></td> */}
                             </tr>
                         ))
                     }
                 </tbody>
             </table>
+            <CreateSubject />
         </>
     )
 }

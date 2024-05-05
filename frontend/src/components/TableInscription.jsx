@@ -2,12 +2,13 @@
 import styles from "@styles/tableInscription.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useStudentContext } from "src/app/context/StudentContext";
 
 const TableInscription = () => {
-
+    const { st } = useStudentContext();
     const [subjects, setSubjects] = useState([]);
     const baseURL = "http://localhost:8080";
-    const idStudent = 4;
+    console.log(st)
 
     useEffect(() => {
         axios
@@ -19,9 +20,9 @@ const TableInscription = () => {
             })
     }, [])
 
-    const inscriptionSubject = (idStudent, idSubject) => {
+    const inscriptionSubject = (idSubject) => {
         axios
-            .put(`${baseURL}/students/inscription?idStudent=${idStudent}&idSubject=${idSubject}`)
+            .put(`${baseURL}/students/inscription?idStudent=${st.id}&idSubject=${idSubject}`)
             .then(response => {
                 console.log(response)
             })
@@ -32,6 +33,7 @@ const TableInscription = () => {
 
     return (
         <div className={`${styles.table} col-6`}>
+            <h2>Inscripciones para {st.name} {st.lastName} </h2>
             <table className="col-12">
                 <thead className={`${styles.thead}`}>
                     <tr>
@@ -50,13 +52,12 @@ const TableInscription = () => {
                                 <td>{subject.stage} </td>
                                 <td>{subject.teacher} </td>
                                 <td>{subject.schedule}</td>
-                                <td><button onClick={() => inscriptionSubject(idStudent, subject.id)}>+</button></td>
+                                <td><button onClick={() => inscriptionSubject(subject.id)}>+</button></td>
                             </tr>
                         ))
                     }
                 </tbody>
             </table>
-
         </div>
     )
 }
