@@ -1,16 +1,18 @@
 'use client'
-import styles from "@styles/tableInscription.module.css";
+import styles from "@styles/table.module.css";
+import layout from "@styles/layout.module.css"
+import button from "@styles/profile.module.css"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useContentContext } from "src/app/context/ContentContext";
 import { useStudentContext } from "src/app/context/StudentContext";
 
 const TableInscription = () => {
-    const { st } = useStudentContext();
+    const { student, fetchStudent } = useStudentContext();
     const { setContent } = useContentContext();
     const [subjects, setSubjects] = useState([]);
     const baseURL = "http://localhost:8080";
-    console.log(st)
+
 
     useEffect(() => {
         axios
@@ -24,7 +26,7 @@ const TableInscription = () => {
 
     const inscriptionSubject = (idSubject) => {
         axios
-            .put(`${baseURL}/students/inscription?idStudent=${st.id}&idSubject=${idSubject}`)
+            .put(`${baseURL}/students/inscription?idStudent=${student.id}&idSubject=${idSubject}`)
             .then(response => {
                 console.log(response)
             })
@@ -34,12 +36,13 @@ const TableInscription = () => {
     }
 
     const switchContent = (c) => {
+        fetchStudent();
         setContent(c)
     }
 
     return (
-        <div className={`${styles.table} col-6`}>
-            <h2>Inscripciones para {st.name} {st.lastName} </h2>
+        <div className={`${styles.table} ${layout.layout} col-6`}>
+            <h2>Inscripciones para {student.name} {student.lastName} </h2>
             <table className="col-12">
                 <thead className={`${styles.thead}`}>
                     <tr>
@@ -64,7 +67,7 @@ const TableInscription = () => {
                     }
                 </tbody>
             </table>
-            <button onClick={() => switchContent("consulta")}>Volver</button>
+            <button className={`${button.button}`} onClick={() => switchContent("consulta")}>Volver</button>
         </div>
     )
 }

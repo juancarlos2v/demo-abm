@@ -11,9 +11,9 @@ const Navigation = () => {
 
     return (
         <div className={`${styles.background} col-12 d-flex align-items-center`}>
-            <button onClick={() => switchContent("alumnos")} >Alumnos</button>
-            <button onClick={() => switchContent("materias")} >Materias</button>
-            <button onClick={() => switchContent("consulta")} >Consultas</button>
+            <button className="col-2" onClick={() => switchContent("alumnos")} >Alumnos</button>
+            <button className="col-2" onClick={() => switchContent("materias")} >Materias</button>
+            <button className="col-2" onClick={() => switchContent("consulta")} >Consultas</button>
         </div>
     )
 }

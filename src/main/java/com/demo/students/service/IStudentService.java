@@ -7,8 +7,6 @@ import com.demo.students.repository.StudentRepository;
 import com.demo.students.repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -55,6 +53,11 @@ public class IStudentService implements StudentService{
     public void deleteStudent(Long id) {
         Student student=studentRepository.findById(id).orElse(null);
         if(student==null) throw  new RuntimeException("Student not found");
+
+        for (Subject subject:student.getSubjects()
+             ) {
+            cancelSubject( subject.getId(),student.getId());
+        }
         studentRepository.delete(student);
     }
 

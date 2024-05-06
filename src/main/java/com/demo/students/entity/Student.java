@@ -25,7 +25,7 @@ public class Student {
     @Column(name = "mail")
     private String mail;
     @Column(name = "subjects")
-    @ManyToMany(mappedBy = "students")
+    @ManyToMany(mappedBy = "students" )
     private Set<Subject> subjects=new HashSet<>();
 
     public Student() {

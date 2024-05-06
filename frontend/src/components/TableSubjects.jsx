@@ -1,37 +1,12 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import styles from "@styles/tableInscription.module.css";
-import CreateSubject from './CreateSubject';
+import styles from "@styles/table.module.css";
 import { useStudentContext } from 'src/app/context/StudentContext';
 
 const TableSubjects = () => {
     const { subjects } = useStudentContext();
-    const baseURL = "http://localhost:8080";
-    const idStudent = 4;
-
-    // useEffect(() => {
-    //     axios
-    //         .get(`${baseURL}/students/${idStudent}`)
-    //         .then(response => {
-    //             setSubjects(response.data.subjects);
-    //         }).catch(error => {
-    //             console.log(error);
-    //         })
-    // }, [])
-
-    // const cancelSubject = (idSubject, idStudent) => {
-    //     axios
-    //         .put(`${baseURL}/students/subject/cancel?idSubject=${idSubject}&idStudent=${idStudent}`)
-    //         .then(response => {
-    //             console.log(response)
-    //         }).catch(error => {
-    //             console.log(error)
-    //         })
-    // }
 
     return (
-        <>
-            <table className={`${styles.table}`} >
+        <div className={`${styles.table}`}>
+            <table >
                 <thead className={`${styles.thead}`}>
                     <tr>
                         <th>Materia</th>
@@ -49,14 +24,13 @@ const TableSubjects = () => {
                                 <td>{subject.stage} </td>
                                 <td>{subject.teacher} </td>
                                 <td>{subject.schedule}</td>
-                                {/* <td><button onClick={() => cancelSubject(subject.id, idStudent)}>x</button></td> */}
                             </tr>
                         ))
                     }
                 </tbody>
             </table>
 
-        </>
+        </div>
     )
 }
 

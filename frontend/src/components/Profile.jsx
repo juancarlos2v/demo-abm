@@ -1,6 +1,7 @@
 "use client"
 import axios from "axios";
-import styles from '@styles/profilecard.module.css'
+import styles from '@styles/profile.module.css'
+import button from "@styles/profile.module.css"
 import { useState } from 'react';
 import { useContentContext } from "src/app/context/ContentContext";
 import { useStudentContext } from "src/app/context/StudentContext";
@@ -8,28 +9,14 @@ import { useStudentContext } from "src/app/context/StudentContext";
 const Profile = ({ select }) => {
     const { setContent } = useContentContext();
     const { updateStudent } = useStudentContext();
+    const [editing, setEditing] = useState(false);
 
-    const StIncription = {
-        id: select.id,
-        name: select.name,
-        lastName: select.lastName,
-    }
-    const [student, setStudent] = useState({
-        id: select.id,
+    const [data, setData] = useState({
         name: select.name,
         lastName: select.lastName,
         document: select.document,
         mail: select.mail,
-        phone: select.phone
-    });
-    const [editing, setEditing] = useState(false);
-
-    const [data, setData] = useState({
-        name: student.name,
-        lastName: student.lastName,
-        document: student.document,
-        mail: student.mail,
-        phone: student.phone,
+        phone: select.phone,
 
     });
 
@@ -44,7 +31,8 @@ const Profile = ({ select }) => {
     }
 
     const edit = () => {
-        setEditing(true);
+        setData(select);
+        setEditing(!editing);
         console.log(editing)
     }
     const switchContent = (c) => {
@@ -57,7 +45,7 @@ const Profile = ({ select }) => {
         axios
             .put(`${baseURL}/students/${id}`, data)
             .then(response => {
-                setStudent(data);
+                updateStudent(data);
             })
             .catch(error => {
                 console.log(error)
@@ -69,28 +57,64 @@ const Profile = ({ select }) => {
         <div className={`${styles.card} col-3`}>
             {!editing ?
                 <h3>{select.name} </h3> :
-                <input type="text" name="name" value={data.name} onChange={handleInputChange} placeholder={student.name} />}
+                <input
+                    type="text"
+                    name="name"
+                    value={data.name}
+                    onChange={handleInputChange}
+                />}
             {!editing ?
                 <h3>{select.lastName} </h3> :
-                <input type="text" name="lastName" value={data.lastName} onChange={handleInputChange} placeholder={student.lastName} />}
-            <h3>{`#${select.id}`} </h3>
-            <button onClick={edit}>Editar</button>
+                <input type="text"
+                    name="lastName"
+                    value={data.lastName}
+                    onChange={handleInputChange}
+                    placeholder={select.lastName} />}
+            {Object.keys(select).length > 0 &&
+                <h3>#{`${select.id}`}</h3>}
+            {Object.keys(select).length > 0 && !editing &&
+                <button className={`${button.button}`} onClick={edit}>Editar</button>}
             <div className='mt-4'>
-                <p>Documento:</p>{
-                    !editing ?
-                        <p>{select.document}</p> :
-                        <input type="text" name="document" value={data.document} onChange={handleInputChange} />}
-                <p>Telefono:</p>{
-                    !editing ?
-                        <p>{select.phone}</p> :
-                        <input type="text" name="phone" value={data.phone} onChange={handleInputChange} />}
-
-                <p>Correo:</p>{
-                    !editing ?
-                        <p>{select.mail}</p> :
-                        <input type="text" name="mail" value={data.mail} onChange={handleInputChange} />}
-                {editing && <button onClick={() => saveChanges(select.id)}>Guardar</button>}
-                <button onClick={() => switchContent("inscripcion")}>Inscripciones</button>
+                <div className="d-flex">
+                    <p>Documento:</p>{
+                        !editing ?
+                            <p>{select.document}</p> :
+                            <input
+                                type="text"
+                                name="document"
+                                value={data.document}
+                                onChange={handleInputChange}
+                                placeholder={select.document} />}
+                </div>
+                <div className="d-flex">
+                    <p>Telefono:</p>{
+                        !editing ?
+                            <p>{select.phone}</p> :
+                            <input
+                                type="text"
+                                name="phone"
+                                value={data.phone}
+                                onChange={handleInputChange}
+                                placeholder={select.phone} />}
+                </div>
+                <div className="d-flex">
+                    <p>Correo:</p>{
+                        !editing ?
+                            <p>{select.mail}</p> :
+                            <input
+                                type="text"
+                                name="mail"
+                                value={data.mail}
+                                onChange={handleInputChange}
+                                placeholder={select.mail} />}
+                </div>
+                {editing &&
+                    <div>
+                        <button className={`${button.button}`} onClick={() => saveChanges(select.id)}>Guardar</button>
+                        <button onClick={edit}>Cancelar</button>
+                    </div>
+                }
+                {Object.keys(select).length > 0 && !editing && <button className={`${button.button}`} onClick={() => switchContent("inscripcion")}>Inscripciones</button>}
 
             </div>
         </div>

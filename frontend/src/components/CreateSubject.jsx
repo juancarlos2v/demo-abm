@@ -1,4 +1,5 @@
 import axios from "axios";
+import styles from "@styles/profile.module.css"
 import { useState } from "react";
 import { useStudentContext } from "src/app/context/StudentContext";
 
@@ -40,7 +41,7 @@ const CreateSubject = () => {
     }
 
     return (
-        <div>
+        <div className={`${styles.card} col-3`}>
             <label htmlFor="name">Name</label>
             <input type="text" name="name" value={data.name} onChange={handleChange} />
             <label htmlFor="">Año</label>
@@ -49,7 +50,7 @@ const CreateSubject = () => {
             <input type="text" name="teacher" value={data.teacher} onChange={handleChange} />
             <label htmlFor="">Horario</label>
             <input type="text" name="schedule" value={data.schedule} onChange={handleChange} />
-            <button onClick={handleSubmit}>Crear Materia</button>
+            <button className={`${styles.button}`} onClick={handleSubmit}>Crear Materia</button>
         </div>
     )
 }

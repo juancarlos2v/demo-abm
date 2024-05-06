@@ -1,16 +1,13 @@
 "use client"
-import { useEffect, useState } from "react"
-import styles from "@styles/tableInscription.module.css";
+
+import styles from "@styles/table.module.css";
 import axios from "axios";
 import { useStudentContext } from "src/app/context/StudentContext";
 
 const TableStudents = () => {
 
     const { students, fetchStudents } = useStudentContext();
-
     const baseURL = "http://localhost:8080";
-
-
 
     const deleteStudent = (id) => {
         axios
@@ -27,11 +24,15 @@ const TableStudents = () => {
 
     return (
         <div className={`${styles.table} col-6`}>
-            <table >
+            <table>
                 <thead className={`${styles.thead}`}>
                     <tr>
+                        <th>ID</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
+                        <th>Documento</th>
+                        <th>Telefono</th>
+                        <th>E-mail</th>
                         <th>Materias</th>
                         <th></th>
                     </tr>
@@ -40,8 +41,12 @@ const TableStudents = () => {
                     {
                         students.map((student, index) => (
                             <tr key={index}>
+                                <td>{student.id} </td>
                                 <td>{student.name}</td>
                                 <td>{student.lastName} </td>
+                                <td>{student.document} </td>
+                                <td>{student.phone} </td>
+                                <td>{student.mail} </td>
                                 <td>{student.subjects.length} </td>
                                 <td><button onClick={() => deleteStudent(student.id)}>-</button></td>
                             </tr>

@@ -7,10 +7,9 @@ const StudentContext = createContext();
 
 export const StudentProvider = ({ children }) => {
     const baseURL = "http://localhost:8080";
-
-
-    const [st, setSt] = useState({});
+    const [student, setStudent] = useState({});
     const [students, setStudents] = useState([]);
+    const [subjectStudent, setsubjectStudent] = useState([]);
     const [subjects, setSubjects] = useState([]);
 
     useEffect(() => {
@@ -28,6 +27,18 @@ export const StudentProvider = ({ children }) => {
                 console.log(error);
             })
     }, [])
+
+    const fetchStudent = () => {
+        axios
+            .get(`${baseURL}/students/${student.id}`)
+            .then(response => {
+                setStudent(response.data);
+                setsubjectStudent(response.data.subjects);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
 
     const fetchStudents = () => {
         axios.get(`${baseURL}/students/all`)
@@ -47,13 +58,14 @@ export const StudentProvider = ({ children }) => {
     };
 
     const updateStudent = (newInfo) => {
-        setSt({ ...st, ...newInfo });
+        setStudent({ ...student, ...newInfo });
+        setsubjectStudent(student.subjects)
     };
 
 
 
     return (
-        <StudentContext.Provider value={{ st, updateStudent, setSt, students, fetchStudents, subjects, fetchSubjects }}>
+        <StudentContext.Provider value={{ student, updateStudent, setStudent, students, fetchStudents, fetchStudent, subjects, fetchSubjects, subjectStudent, setsubjectStudent }}>
             {children}
         </StudentContext.Provider>
     );

@@ -1,14 +1,12 @@
 'use client'
 
-import CardCreateStudent from '@components/CreateStudent'
-import ProfileCard from '@components/Profile'
 import TableInscription from '@components/TableInscription'
 import TableStudents from '@components/TableStudents'
 import TableSubjects from '@components/TableSubjects'
-import styles from "@styles/bodycurs.module.css"
+import styles from "@styles/layout.module.css"
 import { useContentContext } from 'src/app/context/ContentContext'
 import Consulta from '@components/Consulta'
-import { StudentProvider, useStudentContext } from 'src/app/context/StudentContext'
+import { StudentProvider } from 'src/app/context/StudentContext'
 import CreateStudent from '@components/CreateStudent'
 import CreateSubject from '@components/CreateSubject'
 
@@ -19,21 +17,18 @@ const Content = () => {
         <>
             <StudentProvider>
                 {content == "materias" && (
-                    <div className={`${styles.layout} col-12 d-flex justify-content-between`}>
+                    <div className={`${styles.layout} col-12 d-flex justify-content-between mt-5`}>
                         <TableSubjects />
                         <CreateSubject />
                     </div>
                 )}
                 {content == "inscripcion" && (
                     <div>
-
-                        <h2>Inscripcion a materias</h2>
                         <TableInscription />
-
                     </div>
                 )}
                 {content == "alumnos" && (
-                    <div className='col-12 d-flex justify-content-between'>
+                    <div className={`${styles.layout} col-12 d-flex justify-content-between mt-5`} >
                         <TableStudents />
                         <CreateStudent />
                     </div>
