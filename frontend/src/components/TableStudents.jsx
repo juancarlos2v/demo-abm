@@ -2,27 +2,23 @@
 import { useEffect, useState } from "react"
 import styles from "@styles/tableInscription.module.css";
 import axios from "axios";
-import CreateStudent from "./CreateStudent";
+import { useStudentContext } from "src/app/context/StudentContext";
+
 const TableStudents = () => {
 
-    const [students, setStudents] = useState([]);
+    const { students, fetchStudents } = useStudentContext();
+
     const baseURL = "http://localhost:8080";
 
-    useEffect(() => {
-        axios
-            .get(`${baseURL}/students/all`)
-            .then(response => {
-                setStudents(response.data);
-            }).catch(error => {
-                console.log(error);
-            })
-    }, [])
+
 
     const deleteStudent = (id) => {
         axios
             .delete(`${baseURL}/students/${id}`)
             .then(response => {
                 console.log(response);
+                fetchStudents();
+
             })
             .catch(error => {
                 console.log(error)
@@ -31,7 +27,7 @@ const TableStudents = () => {
 
     return (
         <div className={`${styles.table} col-6`}>
-            <table className="col-12">
+            <table >
                 <thead className={`${styles.thead}`}>
                     <tr>
                         <th>Nombre</th>
@@ -53,9 +49,6 @@ const TableStudents = () => {
                     }
                 </tbody>
             </table>
-
-            <CreateStudent />
-
         </div>
     )
 }

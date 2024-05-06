@@ -8,7 +8,9 @@ import TableSubjects from '@components/TableSubjects'
 import styles from "@styles/bodycurs.module.css"
 import { useContentContext } from 'src/app/context/ContentContext'
 import Consulta from '@components/Consulta'
-import { StudentProvider } from 'src/app/context/StudentContext'
+import { StudentProvider, useStudentContext } from 'src/app/context/StudentContext'
+import CreateStudent from '@components/CreateStudent'
+import CreateSubject from '@components/CreateSubject'
 
 const Content = () => {
     const { content } = useContentContext();
@@ -18,7 +20,8 @@ const Content = () => {
             <StudentProvider>
                 {content == "materias" && (
                     <div className={`${styles.layout} col-12 d-flex justify-content-between`}>
-                        <TableSubjects className={`col-6`} />
+                        <TableSubjects />
+                        <CreateSubject />
                     </div>
                 )}
                 {content == "inscripcion" && (
@@ -30,9 +33,9 @@ const Content = () => {
                     </div>
                 )}
                 {content == "alumnos" && (
-                    <div>
+                    <div className='col-12 d-flex justify-content-between'>
                         <TableStudents />
-                        <CardCreateStudent />
+                        <CreateStudent />
                     </div>
                 )}
                 {content == "consulta" && (

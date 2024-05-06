@@ -2,10 +2,12 @@
 import styles from "@styles/tableInscription.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useContentContext } from "src/app/context/ContentContext";
 import { useStudentContext } from "src/app/context/StudentContext";
 
 const TableInscription = () => {
     const { st } = useStudentContext();
+    const { setContent } = useContentContext();
     const [subjects, setSubjects] = useState([]);
     const baseURL = "http://localhost:8080";
     console.log(st)
@@ -29,6 +31,10 @@ const TableInscription = () => {
             .catch(error => {
                 console.log(error)
             })
+    }
+
+    const switchContent = (c) => {
+        setContent(c)
     }
 
     return (
@@ -58,6 +64,7 @@ const TableInscription = () => {
                     }
                 </tbody>
             </table>
+            <button onClick={() => switchContent("consulta")}>Volver</button>
         </div>
     )
 }

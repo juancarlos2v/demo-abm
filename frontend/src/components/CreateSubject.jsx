@@ -1,6 +1,9 @@
+import axios from "axios";
 import { useState } from "react";
+import { useStudentContext } from "src/app/context/StudentContext";
 
 const CreateSubject = () => {
+    const { fetchSubjects, fectchStudents } = useStudentContext();
     const [data, setData] = useState({
         name: '',
         stage: '',
@@ -15,6 +18,8 @@ const CreateSubject = () => {
             .post(`${baseURL}/subjects/create`, data)
             .then(response => {
                 console.log(response)
+                fetchSubjects();
+                fectchStudents();
             })
             .catch(error => {
                 console.log(error)

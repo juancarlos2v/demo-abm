@@ -2,21 +2,22 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import styles from "@styles/tableInscription.module.css";
 import CreateSubject from './CreateSubject';
+import { useStudentContext } from 'src/app/context/StudentContext';
 
 const TableSubjects = () => {
-    const [subjects, setSubjects] = useState([]);
+    const { subjects } = useStudentContext();
     const baseURL = "http://localhost:8080";
     const idStudent = 4;
 
-    useEffect(() => {
-        axios
-            .get(`${baseURL}/students/${idStudent}`)
-            .then(response => {
-                setSubjects(response.data.subjects);
-            }).catch(error => {
-                console.log(error);
-            })
-    }, [])
+    // useEffect(() => {
+    //     axios
+    //         .get(`${baseURL}/students/${idStudent}`)
+    //         .then(response => {
+    //             setSubjects(response.data.subjects);
+    //         }).catch(error => {
+    //             console.log(error);
+    //         })
+    // }, [])
 
     // const cancelSubject = (idSubject, idStudent) => {
     //     axios
@@ -54,7 +55,7 @@ const TableSubjects = () => {
                     }
                 </tbody>
             </table>
-            <CreateSubject />
+
         </>
     )
 }
