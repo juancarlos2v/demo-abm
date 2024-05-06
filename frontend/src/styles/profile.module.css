@@ -1,0 +1,22 @@
+.card {
+  background-color: var(--gray);
+  padding: 2rem;
+  height: 100%;
+}
+.card input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 0.1rem solid rgb(94, 94, 94);
+}
+.button {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.mlb {
+  margin-left: 2rem;
+}

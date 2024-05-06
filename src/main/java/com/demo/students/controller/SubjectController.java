@@ -28,13 +28,13 @@ public class SubjectController {
     @PostMapping("/create")
     public ResponseEntity<Object> createSubject(@RequestBody Subject subject){
         subjectService.createSubject(subject);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("Materia registrada",HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteSubject(@PathVariable Long id){
         subjectService.deleteSubject(id);
-        return  new ResponseEntity<>(HttpStatus.OK);
+        return  new ResponseEntity<>("Materia eliminada con exito",HttpStatus.OK);
     }
 
 }

@@ -21,7 +21,7 @@ public class StudentController {
     @PostMapping("/create")
     public ResponseEntity<Object> createStudent(@RequestBody Student student){
         studentService.createStudent( student);
-        return  new ResponseEntity<>(student, HttpStatus.CREATED);
+        return  new ResponseEntity<>("Estudiante registrado", HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
@@ -37,25 +37,25 @@ public class StudentController {
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateStudent(@PathVariable Long id, @RequestBody Student student){
         studentService.updateStudent(id,student);
-        return new ResponseEntity<>(student,HttpStatus.OK);
+        return new ResponseEntity<>("Estudiante actualizado",HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteStudent(@PathVariable Long id){
         studentService.deleteStudent(id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Estudiante eliminado",HttpStatus.ACCEPTED);
     }
 
     @PutMapping("/inscription")
     public ResponseEntity<Object> addSubject(@RequestParam Long idStudent, @RequestParam Long idSubject){
         studentService.inscriptionSubject(idStudent,idSubject);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Inscripcion realizada con éxito",HttpStatus.OK);
     }
 
     @PutMapping("/subject/cancel")
     public ResponseEntity<Object> cancelSubject(@RequestParam Long idSubject, @RequestParam Long idStudent){
         studentService.cancelSubject(idSubject, idStudent);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Baja de materia aceptada",HttpStatus.OK);
     }
 
 }

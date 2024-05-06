@@ -15,13 +15,17 @@ const CreateStudent = () => {
         mail: '',
         phone: '',
     })
+    const [r, setResponse] = useState({});
     const baseURL = "http://localhost:8080";
 
     const createStudent = (data) => {
         axios
             .post(`${baseURL}/students/create`, data)
             .then(response => {
-                console.log(response);
+                setResponse(response)
+                setTimeout(() => {
+                    setResponse({})
+                }, 2000);
                 fetchStudents();
             })
             .catch(error => {
@@ -55,6 +59,7 @@ const CreateStudent = () => {
             <label htmlFor="phone">Telefono</label>
             <input type="text" name="phone" value={data.phone} onChange={handleChange} />
             <button className={`${styles.button}`} onClick={handleSubmit}>Registrar</button>
+            {Object.keys(r).length > 0 && <p>{r.data} </p>}
         </div>
     )
 }
